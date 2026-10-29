@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useLumyxLink } from "../../lib/link";
 import { cn } from "../../lib/utils";
 import {
   SidebarGroup,
@@ -18,8 +17,18 @@ export type NavSection = {
 };
 
 /** La nav de la sidebar : groupes, item actif, identite visuelle Lumyx. */
-export function SidebarNav({ sections, ariaLabel }: { sections: NavSection[]; ariaLabel: string }) {
-  const pathname = usePathname();
+export function SidebarNav({
+  sections,
+  ariaLabel,
+  activeHref,
+}: {
+  sections: NavSection[];
+  ariaLabel: string;
+  /** Force l'item actif ; par defaut, le `pathname` du `LumyxLinkProvider`. */
+  activeHref?: string;
+}) {
+  const { Link, pathname: contextPathname } = useLumyxLink();
+  const pathname = activeHref ?? contextPathname;
   return (
     <nav aria-label={ariaLabel} className="flex flex-col gap-5">
       {sections.map((section) => (
