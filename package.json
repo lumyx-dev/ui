@@ -45,7 +45,9 @@
   "scripts": {
     "check-types": "tsc --noEmit",
     "test": "bun test",
-    "verify:ds": "node scripts/verify-ds.mjs"
+    "verify:ds": "node scripts/verify-ds.mjs",
+    "preversion": "test \"$(git branch --show-current)\" = main && git fetch -q origin main && test \"$(git rev-parse HEAD)\" = \"$(git rev-parse origin/main)\" && bun run check-types && bun test && bun run verify:ds && npm pack --dry-run",
+    "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
