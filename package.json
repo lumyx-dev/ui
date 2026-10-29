@@ -1,6 +1,6 @@
 {
   "name": "@lumyx/ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The Lumyx design system: React components and Tailwind CSS v4 tokens.",
   "license": "MIT",
   "author": "Mathieu Chambaud",

@@ -177,6 +177,7 @@
   --color-muted: var(--text-muted);
   --color-faint: var(--text-faint);
   --color-on-accent: var(--text-on-accent);
+  --color-on-overlay: var(--text-on-overlay);
 
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
