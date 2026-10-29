@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+import { useLumyxLink } from "../../lib/link";
 import { cn } from '../../lib/utils';
 import { StatusDot, type Status } from "./status-dot";
 import { Badge } from '../ui/badge';
@@ -14,6 +15,7 @@ export type Room = {
 };
 
 export function RoomCard({ room, href, className }: { room: Room; href?: string; className?: string }) {
+  const { Link } = useLumyxLink();
   const body = (
     <div className={cn("rounded-lg border border-hairline bg-card p-5 shadow-[var(--shadow-sm)] transition-shadow duration-[180ms] hover:shadow-[var(--shadow-md)]", className)}>
       <div className="flex items-start justify-between gap-3">

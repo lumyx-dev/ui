@@ -1,6 +1,6 @@
 {
   "name": "@lumyx/ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The Lumyx design system: React components and Tailwind CSS v4 tokens.",
   "license": "MIT",
   "author": "Mathieu Chambaud",
@@ -35,6 +35,7 @@
   "files": [
     "src",
     "!src/**/*.test.ts",
+    "!src/**/*.test.tsx",
     "README.md",
     "LICENSE"
   ],
@@ -64,7 +65,6 @@
     "tailwind-merge": "^3.0.2"
   },
   "peerDependencies": {
-    "next": "^16",
     "react": "^19",
     "react-dom": "^19"
   },
@@ -73,7 +73,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5",
-    "next": "16.3.2",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
