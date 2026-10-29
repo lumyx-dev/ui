@@ -12,23 +12,16 @@
  * devient inutilisable hors web (shiki-cli, shiki-monaco). Sans effet ici.
  *
  * Les sept rôles de `settings` (plus `bg`/`fg` pour le fond et le texte de base, neuf couleurs en
- * tout) reprennent la map `ROLE_COLOR` du tokenizer de la landing (`apps/landing/lib/highlight.ts`),
+ * tout) reprennent la map `ROLE_COLOR` du tokenizer de la landing (`apps/landing/lib/highlight.ts`, repo lumyx-dev/website),
  * pour que la doc et le site marketing colorient le code de façon identique.
+ *
+ * Livre en JavaScript avec un `.d.ts` a cote, et non en TypeScript comme le reste du paquet :
+ * `fumadocs-mdx` importe ce sous-chemin avec le Node natif, qui refuse le type-stripping sous
+ * `node_modules` (« Stripping types is currently unsupported for files under node_modules »).
  */
 
-export type CodeThemeSetting = {
-  scope: string[];
-  settings: { foreground: string };
-};
-
-export type CodeTheme = {
-  name: string;
-  bg: string;
-  fg: string;
-  settings: CodeThemeSetting[];
-};
-
-export const lumyxCodeTheme: CodeTheme = {
+/** @type {import('./code-theme').CodeTheme} */
+export const lumyxCodeTheme = {
   name: "lumyx",
   bg: "var(--code-bg)",
   fg: "var(--code-fg)",
