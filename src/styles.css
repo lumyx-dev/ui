@@ -252,7 +252,7 @@
 
 /* ============================================================================
    Roles de coloration syntaxique. Consommes par du style inline emis par Shiki
-   (cf. packages/ui/src/code-theme.ts), donc hors de @theme : ce ne sont pas des
+   (cf. src/code-theme.js), donc hors de @theme : ce ne sont pas des
    utilitaires Tailwind. Ils pointent sur des alias semantiques qui basculent deja
    sous .dark, d'ou l'absence de redeclaration en mode sombre.
    ========================================================================== */

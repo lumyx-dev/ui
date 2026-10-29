@@ -26,7 +26,10 @@
   "exports": {
     ".": "./src/index.ts",
     "./styles.css": "./src/styles.css",
-    "./code-theme": "./src/code-theme.ts",
+    "./code-theme": {
+      "types": "./src/code-theme.d.ts",
+      "default": "./src/code-theme.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
