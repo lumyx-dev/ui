@@ -1,17 +1,47 @@
 {
   "name": "@lumyx/ui",
   "version": "0.1.0",
-  "private": true,
+  "description": "The Lumyx design system: React components and Tailwind CSS v4 tokens.",
+  "license": "MIT",
+  "author": "Mathieu Chambaud",
+  "homepage": "https://github.com/lumyx-dev/ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumyx-dev/ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lumyx-dev/ui/issues"
+  },
+  "keywords": [
+    "lumyx",
+    "design-system",
+    "react",
+    "tailwindcss",
+    "shadcn"
+  ],
   "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css",
+    "./code-theme": "./src/code-theme.ts",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "!src/**/*.test.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "check-types": "tsc --noEmit",
     "test": "bun test",
     "verify:ds": "node scripts/verify-ds.mjs"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./styles.css": "./src/styles.css",
-    "./code-theme": "./src/code-theme.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
@@ -39,7 +69,10 @@
     "@types/bun": "latest",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "typescript": "^5",
+    "next": "16.3.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "engines": {
     "node": ">=22.18"
