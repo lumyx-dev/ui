@@ -124,6 +124,39 @@ for (const size of uniqueScale) {
   }
 }
 
+// 7-9. Les namespaces par defaut de Tailwind restent actifs (styles.css ne les remet pas a
+// zero) : rien n'empeche a la compilation un `text-sm`, un `bg-white` ou un `duration-300`.
+// Ces regles ferment la porte cote source.
+const CODE_FILES = files.filter((f) => ['.ts', '.tsx', '.js'].includes(extname(f)));
+function scanClasses(rule, pattern, accept = () => false) {
+  for (const f of CODE_FILES) {
+    readFileSync(f, 'utf8')
+      .split('\n')
+      .forEach((line, i) => {
+        for (const m of line.matchAll(pattern)) {
+          if (!accept(m)) fail(rule, `${rel(f)}:${i + 1} — ${m[0]}`);
+        }
+      });
+  }
+}
+
+// 7. Taille de texte sur l'echelle numerique (text-11 … text-44), jamais l'echelle Tailwind.
+scanClasses('type-scale', /(?<![\w-])text-(?:xs|sm|base|lg|xl|[2-9]xl)(?![\w-])/g);
+
+// 8. Couleur par token semantique : ni black/white, ni la palette par defaut de Tailwind.
+const PALETTE =
+  'slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose';
+const COLOR_UTILS =
+  'bg|text|border(?:-[trblxyse])?|ring|ring-offset|outline|fill|stroke|from|via|to|divide|placeholder|caret|accent|decoration|shadow';
+scanClasses(
+  'no-raw-palette',
+  new RegExp(`(?<![\\w-])(?:${COLOR_UTILS})-(?:black|white|(?:${PALETTE})-\\d{2,3})(?![\\w-])`, 'g'),
+);
+
+// 9. Durees de motion : 120ms teintes · 180ms par defaut · 260ms taille & position (styles.css).
+const DURATIONS = new Set(['0', '120', '180', '260']);
+scanClasses('motion-duration', /(?<![\w-])duration-(\d+|\[[^\]]*\])/g, (m) => DURATIONS.has(m[1]));
+
 if (failures.length) {
   console.error(`\n✗ ${failures.length} violation(s) des contraintes du design system\n`);
   failures.forEach((f) => console.error('  ' + f));
