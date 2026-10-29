@@ -15,18 +15,20 @@ bun add @lumyx/ui
 bun add github:lumyx-dev/ui
 ```
 
-Peer dependencies: `react@^19`, `react-dom@^19`, `next@^16` (a few components use `next/link`
-and `next/navigation`).
+Peer dependencies: `react@^19` and `react-dom@^19`. The package does not depend on any
+framework: links go through `LumyxLinkProvider` (see [Routing](#routing)).
 
-## Setup (Next.js + Tailwind CSS v4)
+## Setup (Tailwind CSS v4)
 
-The package ships TypeScript source, not a build. Let Next.js compile it:
+The package ships TypeScript source, not a build. With Next.js, let it compile the package:
 
 ```ts
 // next.config.ts
 const nextConfig = { transpilePackages: ['@lumyx/ui'] };
 export default nextConfig;
 ```
+
+Vite-based frameworks (Astro with `@astrojs/react`, Remix, …) compile it out of the box.
 
 Import the tokens and point Tailwind at the component sources so their classes are generated:
 
@@ -54,11 +56,35 @@ export function Example() {
 }
 ```
 
+## Routing
+
+`SidebarNav`, `AppHeader` breadcrumbs and `RoomCard` render internal links. By default they are
+plain `<a>` elements and no navigation item is marked active. Plug in your router once, in a
+client component that wraps your pages:
+
+```tsx
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { LumyxLinkProvider } from '@lumyx/ui';
+
+export function Chrome({ children }: { children: React.ReactNode }) {
+  return (
+    <LumyxLinkProvider link={Link} pathname={usePathname()}>
+      {children}
+    </LumyxLinkProvider>
+  );
+}
+```
+
+Outside a router (Astro islands, static pages), skip the provider, or pass `activeHref` to
+`SidebarNav` directly.
+
 Entry points:
 
 | Import | Contents |
 |---|---|
-| `@lumyx/ui` | Components (`components/ui`, `components/lumyx`) and the `cn` helper |
+| `@lumyx/ui` | Components (`components/ui`, `components/lumyx`), `LumyxLinkProvider` and the `cn` helper |
 | `@lumyx/ui/styles.css` | Design tokens, the shadcn theme contract and base styles |
 | `@lumyx/ui/code-theme` | Shiki code-highlighting theme matching the tokens |
 
