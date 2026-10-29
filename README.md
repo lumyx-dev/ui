@@ -102,3 +102,15 @@ Design notes live in [`docs/`](docs/).
 ## License
 
 [MIT](LICENSE) © Mathieu Chambaud
+
+## Releasing
+
+Versions follow [SemVer](https://semver.org/) and are cut from an up-to-date `main`:
+
+```sh
+npm version patch   # or minor / major
+```
+
+This runs the CI checks, bumps `package.json`, commits `chore(release): vX.Y.Z`, tags `vX.Y.Z`
+and pushes. The tag triggers the Release workflow, which publishes a GitHub release with
+generated notes.
