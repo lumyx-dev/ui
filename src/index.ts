@@ -1,4 +1,5 @@
 export * from './lib/utils';
+export * from './lib/link';
 export * from './code-theme';
 
 export * from './components/ui/badge';

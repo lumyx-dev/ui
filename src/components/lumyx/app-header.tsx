@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import Link from "next/link";
+import { useLumyxLink } from "../../lib/link";
 import { cn } from "../../lib/utils";
 import { SidebarTrigger } from "../ui/sidebar";
 
@@ -23,6 +23,7 @@ export function AppHeader({
   actions?: React.ReactNode;
   className?: string;
 }) {
+  const { Link } = useLumyxLink();
   return (
     <header className={cn("row-start-1 border-b border-hairline bg-card", className)}>
       <div className="mx-auto flex w-full max-w-[1360px] items-center justify-between gap-6 px-4 py-4 lg:px-8">
