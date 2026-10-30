@@ -8,14 +8,14 @@ import { cn } from '../../lib/utils';
  * Focus is the 3px indigo ring, never a browser outline.
  */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors duration-[120ms] ease-[var(--ease-out)] outline-none focus-visible:border-accent focus-visible:shadow-[var(--ring-accent)] disabled:opacity-45 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4 [&_svg]:stroke-[1.75]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors duration-120 ease-[var(--ease-out)] outline-none focus-visible:border-accent focus-visible:shadow-[var(--ring-accent)] disabled:opacity-45 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4 [&_svg]:stroke-[1.75]",
   {
     variants: {
       variant: {
         primary: "bg-accent text-on-accent border border-transparent hover:bg-accent-hover shadow-[var(--shadow-xs)]",
         secondary: "bg-card text-strong border border-stroke hover:bg-hover shadow-[var(--shadow-xs)]",
         ghost: "bg-transparent text-body border border-transparent hover:bg-hover",
-        danger: "bg-danger text-white border border-transparent hover:brightness-95 focus-visible:shadow-[var(--ring-danger)]",
+        danger: "bg-danger text-on-accent border border-transparent hover:brightness-95 focus-visible:shadow-[var(--ring-danger)]",
         link: "bg-transparent text-accent-text underline-offset-2 hover:underline p-0 h-auto",
       },
       size: {

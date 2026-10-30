@@ -13,7 +13,7 @@ function Progress({
       {...props}
     >
       <ProgressPrimitive.Indicator
-        className={cn("h-full rounded-pill bg-accent transition-[width] duration-[260ms] ease-[var(--ease-out)]", indicatorClassName)}
+        className={cn("h-full rounded-pill bg-accent transition-[width] duration-260 ease-[var(--ease-out)]", indicatorClassName)}
         style={{ width: `${value ?? 0}%` }}
       />
     </ProgressPrimitive.Root>
