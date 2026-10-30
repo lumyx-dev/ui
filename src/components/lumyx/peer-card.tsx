@@ -16,7 +16,7 @@ export type Peer = {
 /** Peers are indigo. Rooms and sessions are coral. They are never blended. */
 export function PeerCard({ peer, className }: { peer: Peer; className?: string }) {
   return (
-    <div className={cn("rounded-lg border border-hairline bg-card p-4 shadow-[var(--shadow-sm)] transition-shadow duration-[180ms] hover:shadow-[var(--shadow-md)]", className)}>
+    <div className={cn("rounded-lg border border-hairline bg-card p-4 shadow-[var(--shadow-sm)] transition-shadow duration-180 hover:shadow-[var(--shadow-md)]", className)}>
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <StatusDot status={peer.status} />

@@ -8,7 +8,7 @@ function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("relative overflow-hidden rounded-sm bg-inset", className)}
       {...props}
     >
-      <div className="absolute inset-0 animate-[var(--animate-shimmer)] bg-gradient-to-r from-transparent via-black/[.04] to-transparent" />
+      <div className="absolute inset-0 animate-[var(--animate-shimmer)] bg-gradient-to-r from-transparent via-active to-transparent" />
     </div>
   );
 }

@@ -14,7 +14,7 @@ function SelectTrigger({ className, children, ...props }: React.ComponentProps<t
       data-slot="select-trigger"
       className={cn(
         "flex h-9 w-full items-center justify-between gap-2 rounded-sm border border-stroke bg-card px-3 text-13 text-strong",
-        "shadow-[var(--shadow-xs)] outline-none transition-colors duration-[120ms]",
+        "shadow-[var(--shadow-xs)] outline-none transition-colors duration-120",
         "focus-visible:border-accent focus-visible:shadow-[var(--ring-accent)] disabled:opacity-45 disabled:cursor-not-allowed",
         className
       )}

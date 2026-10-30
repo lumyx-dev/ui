@@ -61,3 +61,47 @@ describe('verify-ds regle 2 — monospace par token', () => {
     expect(proc.exitCode).toBe(0);
   });
 });
+
+describe('verify-ds regle 7 — echelle typographique', () => {
+  test('accepte l echelle numerique', () => {
+    expect(runWith('export const A = () => <p className="text-13 text-muted" />;\n').code).toBe(0);
+  });
+
+  test('refuse l echelle Tailwind par defaut', () => {
+    const { code, output } = runWith('export const A = () => <p className="text-sm" />;\n');
+    expect(code).toBe(1);
+    expect(output).toContain('type-scale');
+  });
+});
+
+describe('verify-ds regle 8 — couleurs par token', () => {
+  test('accepte les utilitaires semantiques', () => {
+    expect(runWith('export const A = () => <p className="bg-danger text-on-accent" />;\n').code).toBe(0);
+  });
+
+  test('refuse black / white', () => {
+    const { code, output } = runWith('export const A = () => <p className="bg-black/50 text-white" />;\n');
+    expect(code).toBe(1);
+    expect(output).toContain('no-raw-palette');
+  });
+
+  test('refuse la palette Tailwind par defaut', () => {
+    expect(runWith('export const A = () => <p className="border-zinc-200" />;\n').code).toBe(1);
+  });
+});
+
+describe('verify-ds regle 9 — durees de motion', () => {
+  test('accepte 120 / 180 / 260', () => {
+    expect(runWith('export const A = () => <p className="duration-120 hover:duration-260" />;\n').code).toBe(0);
+  });
+
+  test('refuse une duree hors systeme', () => {
+    const { code, output } = runWith('export const A = () => <p className="duration-300" />;\n');
+    expect(code).toBe(1);
+    expect(output).toContain('motion-duration');
+  });
+
+  test('refuse une valeur arbitraire', () => {
+    expect(runWith('export const A = () => <p className="duration-[120ms]" />;\n').code).toBe(1);
+  });
+});

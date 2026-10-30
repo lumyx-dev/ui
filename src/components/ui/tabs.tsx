@@ -20,7 +20,7 @@ const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPr
   <TabsPrimitive.Trigger
     data-slot="tabs-trigger"
     className={cn(
-      "relative -mb-px h-9 px-3 text-13 font-medium text-muted transition-colors duration-[120ms]",
+      "relative -mb-px h-9 px-3 text-13 font-medium text-muted transition-colors duration-120",
       "border-b-2 border-transparent hover:text-strong",
       "data-[state=active]:text-strong data-[state=active]:border-accent",
       "outline-none focus-visible:shadow-[var(--ring-accent)] rounded-t-xs",

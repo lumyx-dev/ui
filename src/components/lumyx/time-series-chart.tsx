@@ -28,7 +28,7 @@ export function TimeSeriesChart({
         {ticks.map((t) => (
           <g key={t}>
             <line x1={padL} x2={W - padR} y1={y(t)} y2={y(t)} stroke="var(--border-subtle)" strokeWidth="1" />
-            <text x={0} y={y(t) + 3} fontSize="10" fill="var(--text-faint)" style={{ fontVariantNumeric: "tabular-nums" }}>
+            <text x={0} y={y(t) + 3} fontSize="11" fill="var(--text-faint)" style={{ fontVariantNumeric: "tabular-nums" }}>
               {Math.round(t)}{yUnit}
             </text>
           </g>
@@ -38,7 +38,7 @@ export function TimeSeriesChart({
           return <polyline key={s.name} points={pts} fill="none" stroke={s.color} strokeWidth="1.75" strokeLinejoin="round" strokeLinecap="round" />;
         })}
         {xLabels.map((l, i) => (
-          <text key={l + i} x={x((i / Math.max(xLabels.length - 1, 1)) * (len - 1))} y={H - 4} fontSize="10" fill="var(--text-faint)" textAnchor="middle">
+          <text key={l + i} x={x((i / Math.max(xLabels.length - 1, 1)) * (len - 1))} y={H - 4} fontSize="11" fill="var(--text-faint)" textAnchor="middle">
             {l}
           </text>
         ))}

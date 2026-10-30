@@ -46,7 +46,7 @@ export function SidebarNav({
                       asChild
                       isActive={active}
                       className={cn(
-                        "h-auto gap-2.5 rounded-sm px-2 py-1.5 text-13 transition-colors duration-[120ms]",
+                        "h-auto gap-2.5 rounded-sm px-2 py-1.5 text-13 transition-colors duration-120",
                         active
                           ? "bg-accent-tint font-medium text-accent-text shadow-[inset_2px_0_0_var(--accent)] hover:bg-accent-tint hover:text-accent-text"
                           : "text-body hover:bg-hover hover:text-strong",
