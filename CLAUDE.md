@@ -6,6 +6,7 @@
 - Tokens live only in `src/styles.css`; `verify:ds` forbids literal colours elsewhere.
 - Imports inside `src/` are relative (no `@/` alias) so consumers can compile the source.
 - Never publish to npm without explicit approval.
+- Commits and PRs never mention Claude: no `Co-Authored-By: Claude` trailer, no "Generated with Claude Code" line, no reference to AI in messages or descriptions.
 
 <!-- rtk-instructions v2 -->
 # RTK (Rust Token Killer) - Token-Optimized Commands
