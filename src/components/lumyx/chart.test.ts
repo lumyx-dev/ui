@@ -19,6 +19,7 @@ describe("tones", () => {
     expect(thresholdTone(1, 2, 5)).toBe("ok");
     expect(thresholdTone(2, 2, 5)).toBe("warn");
     expect(thresholdTone(5, 2, 5)).toBe("danger");
+    expect(thresholdTone(1, 2, 5, "neutral")).toBe("neutral");
   });
   test("scoreTone: lower is worse, defaults 80 / 50, overridable", () => {
     expect(scoreTone(90)).toBe("ok");

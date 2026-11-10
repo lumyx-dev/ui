@@ -19,9 +19,13 @@ export type ChartBand = { lo: number[]; hi: number[]; color?: string; name?: str
 /**
  * Dependency-free line chart on the five fixed series values. Optional area fills, dashed
  * threshold lines, a shaded band (p50–p95) and a playhead. Numbers are not tweened.
+ *
+ * Only the marks live in the stretched SVG; axis and threshold labels are HTML laid over it, so
+ * text keeps its shape at any width and the last x label is never clipped.
  */
 export function TimeSeriesChart({
-  series, height = 200, yUnit = "", xLabels = [], max: maxProp, thresholds = [], band, playhead, legend = true, className,
+  series, height = 200, yUnit = "", xLabels = [], max: maxProp, thresholds = [], band, playhead, playheadColor = "var(--accent)",
+  yAxis = true, legend = true, className,
 }: {
   series: Series[];
   height?: number;
@@ -33,89 +37,91 @@ export function TimeSeriesChart({
   band?: ChartBand;
   /** A vertical line at this fraction of the x axis (0–1) — the replay position. */
   playhead?: number;
+  playheadColor?: string;
+  /** Set to false for a bare chart (no y labels, plot spans the full width). */
+  yAxis?: boolean;
   /** Set to false to place a `ChartLegend` in the card header instead. */
   legend?: boolean;
   className?: string;
 }) {
-  const W = 800;
-  const H = height;
-  const padL = 40, padB = 22, padT = 8, padR = 8;
+  const W = 600;
+  const H = 200;
   const all = [...series.flatMap((s) => s.data), ...(band ? band.hi : []), ...thresholds.map((t) => t.value)];
   const max = maxProp ?? Math.max(...all, 1);
-  const min = 0;
   const len = Math.max(...series.map((s) => s.data.length), band?.hi.length ?? 0, 2);
-  const x = (i: number) => padL + (i / (len - 1)) * (W - padL - padR);
-  const y = (v: number) => padT + (1 - (Math.min(max, v) - min) / (max - min || 1)) * (H - padT - padB);
-  const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => min + t * (max - min));
+  const x = (i: number) => (i / (len - 1)) * W;
+  const y = (v: number) => H - (Math.min(max, Math.max(0, v)) / (max || 1)) * H;
   const pts = (d: number[]) => d.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-  const base = y(min).toFixed(1);
+  const ticks = [1, 0.75, 0.5, 0.25];
+  const pct = (v: number) => `${(1 - Math.min(max, Math.max(0, v)) / (max || 1)) * 100}%`;
+  const fmt = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(1));
+  const ph = playhead == null ? null : Math.min(1, Math.max(0, playhead));
 
   return (
     <div className={cn("w-full", className)}>
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={H} preserveAspectRatio="none" role="img">
-        {ticks.map((t) => (
-          <g key={t}>
-            <line x1={padL} x2={W - padR} y1={y(t)} y2={y(t)} stroke="var(--border-subtle)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-            <text x={0} y={y(t) + 3} fontSize="12" fill="var(--text-faint)" style={{ fontFamily: "var(--font-mono)", fontVariantNumeric: "tabular-nums" }}>
-              {Math.round(t)}{yUnit}
-            </text>
-          </g>
-        ))}
-        {band ? (
-          <polygon
-            points={`${pts(band.hi)} ${band.lo.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).reverse().join(" ")}`}
-            fill={band.color ?? "var(--accent)"}
-            fillOpacity="0.1"
-          />
-        ) : null}
-        {series.filter((s) => s.area).map((s) => (
-          <polygon
-            key={`${s.name}-area`}
-            points={`${x(0).toFixed(1)},${base} ${pts(s.data)} ${x(s.data.length - 1).toFixed(1)},${base}`}
-            fill={s.color}
-            fillOpacity="0.08"
-          />
-        ))}
-        {thresholds.map((t) => (
-          <g key={`th-${t.value}`}>
+      <div className="relative" style={{ height }}>
+        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" className="absolute inset-0 block size-full overflow-visible">
+          <path d={ticks.map((t) => `M0 ${H * (1 - t)}H${W}`).join("") + `M0 ${H}H${W}`} stroke="var(--border-subtle)" vectorEffect="non-scaling-stroke" />
+          {band ? (
+            <polygon
+              points={`${pts(band.hi)} ${band.lo.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).reverse().join(" ")}`}
+              fill={band.color ?? "var(--accent)"}
+              fillOpacity="0.1"
+            />
+          ) : null}
+          {series.filter((s) => s.area).map((s) => (
+            <polygon key={`${s.name}-area`} points={`0,${H} ${pts(s.data)} ${x(s.data.length - 1).toFixed(1)},${H}`} fill={s.color} fillOpacity="0.08" />
+          ))}
+          {thresholds.map((t) => (
             <line
-              x1={padL} x2={W - padR} y1={y(t.value)} y2={y(t.value)}
+              key={`th-${t.value}`}
+              x1={0} x2={W} y1={y(t.value)} y2={y(t.value)}
               stroke={t.color ?? "var(--danger-solid)"} strokeWidth="1.5" strokeDasharray="6 6" vectorEffect="non-scaling-stroke"
             />
-            {t.label ? (
-              <text x={W - padR} y={y(t.value) - 4} fontSize="12" textAnchor="end" fill={t.color ?? "var(--danger-solid)"} style={{ fontFamily: "var(--font-mono)" }}>
-                {t.label}
-              </text>
-            ) : null}
-          </g>
+          ))}
+          {series.map((s) => (
+            <polyline
+              key={s.name}
+              points={pts(s.data)}
+              fill="none"
+              stroke={s.color}
+              strokeWidth="2"
+              strokeDasharray={s.dashed ? "6 6" : undefined}
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          ))}
+          {ph != null ? (
+            <line x1={ph * W} x2={ph * W} y1={0} y2={H} stroke={playheadColor} strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+          ) : null}
+        </svg>
+        {yAxis
+          ? ticks.map((t) => (
+              <span
+                key={t}
+                className="sl-num pointer-events-none absolute left-0 rounded-2xs bg-card/80 pr-1 text-12 text-faint"
+                style={{ top: `${(1 - t) * 100}%`, transform: t === 1 ? undefined : "translateY(-50%)" }}
+              >
+                {fmt(max * t)}{yUnit}
+              </span>
+            ))
+          : null}
+        {thresholds.filter((t) => t.label).map((t) => (
+          <span
+            key={`thl-${t.value}`}
+            className="sl-num pointer-events-none absolute right-0 -translate-y-full pb-0.5 text-12"
+            style={{ top: pct(t.value), color: t.color ?? "var(--danger-solid)" }}
+          >
+            {t.label}
+          </span>
         ))}
-        {series.map((s) => (
-          <polyline
-            key={s.name}
-            points={pts(s.data)}
-            fill="none"
-            stroke={s.color}
-            strokeWidth="2"
-            strokeDasharray={s.dashed ? "6 6" : undefined}
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-          />
-        ))}
-        {playhead != null ? (
-          <line
-            x1={padL + Math.min(1, Math.max(0, playhead)) * (W - padL - padR)}
-            x2={padL + Math.min(1, Math.max(0, playhead)) * (W - padL - padR)}
-            y1={padT} y2={H - padB}
-            stroke="var(--surface-ink)" strokeWidth="1.5" vectorEffect="non-scaling-stroke"
-          />
-        ) : null}
-        {xLabels.map((l, i) => (
-          <text key={l + i} x={x((i / Math.max(xLabels.length - 1, 1)) * (len - 1))} y={H - 4} fontSize="12" fill="var(--text-faint)" textAnchor="middle" style={{ fontFamily: "var(--font-mono)" }}>
-            {l}
-          </text>
-        ))}
-      </svg>
+      </div>
+      {xLabels.length ? (
+        <div className="sl-num mt-2 flex justify-between text-12 text-faint">
+          {xLabels.map((l, i) => <span key={l + i}>{l}</span>)}
+        </div>
+      ) : null}
       {legend ? (
         <ChartLegend
           className="mt-3"
