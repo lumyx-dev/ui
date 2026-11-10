@@ -27,26 +27,26 @@ export function TimeSeriesChart({
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={H} preserveAspectRatio="none" role="img">
         {ticks.map((t) => (
           <g key={t}>
-            <line x1={padL} x2={W - padR} y1={y(t)} y2={y(t)} stroke="var(--border-subtle)" strokeWidth="1" />
-            <text x={0} y={y(t) + 3} fontSize="11" fill="var(--text-faint)" style={{ fontVariantNumeric: "tabular-nums" }}>
+            <line x1={padL} x2={W - padR} y1={y(t)} y2={y(t)} stroke="var(--border-subtle)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <text x={0} y={y(t) + 3} fontSize="12" fill="var(--text-faint)" style={{ fontFamily: "var(--font-mono)", fontVariantNumeric: "tabular-nums" }}>
               {Math.round(t)}{yUnit}
             </text>
           </g>
         ))}
         {series.map((s) => {
           const pts = s.data.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-          return <polyline key={s.name} points={pts} fill="none" stroke={s.color} strokeWidth="1.75" strokeLinejoin="round" strokeLinecap="round" />;
+          return <polyline key={s.name} points={pts} fill="none" stroke={s.color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />;
         })}
         {xLabels.map((l, i) => (
-          <text key={l + i} x={x((i / Math.max(xLabels.length - 1, 1)) * (len - 1))} y={H - 4} fontSize="11" fill="var(--text-faint)" textAnchor="middle">
+          <text key={l + i} x={x((i / Math.max(xLabels.length - 1, 1)) * (len - 1))} y={H - 4} fontSize="12" fill="var(--text-faint)" textAnchor="middle" style={{ fontFamily: "var(--font-mono)" }}>
             {l}
           </text>
         ))}
       </svg>
       <div className="mt-3 flex flex-wrap items-center gap-4">
         {series.map((s) => (
-          <span key={s.name} className="flex items-center gap-1.5 text-12 text-muted">
-            <span className="h-0.5 w-3 rounded-pill" style={{ background: s.color }} />
+          <span key={s.name} className="flex items-center gap-2 text-12 text-muted">
+            <span className="h-0.5 w-3" style={{ background: s.color }} />
             {s.name}
           </span>
         ))}

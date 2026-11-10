@@ -14,3 +14,5 @@ export * from "./sidebar-nav";
 export * from "./app-header";
 export * from "./page-body";
 export * from "./status-strip";
+export * from "./top-bar";
+export * from "./sidebar-brand";

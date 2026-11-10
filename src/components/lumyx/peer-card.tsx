@@ -16,15 +16,15 @@ export type Peer = {
 /** Peers are indigo. Rooms and sessions are coral. They are never blended. */
 export function PeerCard({ peer, className }: { peer: Peer; className?: string }) {
   return (
-    <div className={cn("rounded-lg border border-hairline bg-card p-4 shadow-[var(--shadow-sm)] transition-shadow duration-180 hover:shadow-[var(--shadow-md)]", className)}>
+    <div className={cn("sl-lift rounded-lg border border-hairline bg-card p-4", className)}>
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <StatusDot status={peer.status} />
-          <span className="sl-num text-13 font-medium text-strong">{peer.id}</span>
+          <span className="sl-num text-14 font-semibold text-strong">{peer.id}</span>
         </div>
         <QualityIndicator quality={peer.quality} />
       </div>
-      {peer.name ? <p className="mt-1 text-12 text-muted">{peer.name}</p> : null}
+      {peer.name ? <p className="mt-1 text-12 text-faint">{peer.name}</p> : null}
       <dl className="mt-4 grid grid-cols-3 gap-3">
         {[
           ["Rtt", `${peer.rttMs}ms`],
@@ -33,14 +33,14 @@ export function PeerCard({ peer, className }: { peer: Peer; className?: string }
         ].map(([k, v]) => (
           <div key={k} className="flex flex-col gap-1">
             <dt className="sl-label">{k}</dt>
-            <dd className="sl-num text-14 font-medium text-strong">{v}</dd>
+            <dd className="sl-num text-16 font-semibold text-strong">{v}</dd>
           </div>
         ))}
       </dl>
       {peer.tracks?.length ? (
         <div className="mt-3 flex flex-wrap gap-1.5 border-t border-subtle pt-3">
           {peer.tracks.map((t) => (
-            <span key={t} className="rounded-xs bg-inset px-1.5 py-0.5 text-11 text-muted">{t}</span>
+            <span key={t} className="sl-num rounded-xs bg-hover px-2 py-0.5 text-12 text-muted">{t}</span>
           ))}
         </div>
       ) : null}

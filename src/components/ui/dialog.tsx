@@ -21,7 +21,7 @@ function DialogContent({ className, children, ...props }: React.ComponentProps<t
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-xs p-1 text-muted transition-colors duration-120 hover:bg-hover hover:text-strong outline-none focus-visible:shadow-[var(--ring-accent)]">
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-xs p-1 text-muted transition-colors duration-120 hover:bg-hover hover:text-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
           <X className="size-4 stroke-[1.75]" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -37,7 +37,7 @@ const DialogTitle = ({ className, ...props }: React.ComponentProps<typeof Dialog
   <DialogPrimitive.Title className={cn("text-16 font-semibold text-strong", className)} {...props} />
 );
 const DialogDescription = ({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Description>) => (
-  <DialogPrimitive.Description className={cn("text-13 text-muted", className)} {...props} />
+  <DialogPrimitive.Description className={cn("text-14 text-muted", className)} {...props} />
 );
 const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => (
   <div className={cn("flex items-center justify-end gap-3 border-t border-subtle px-6 py-4", className)} {...props} />

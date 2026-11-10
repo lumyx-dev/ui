@@ -4,25 +4,28 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from '../../lib/utils';
 
 /**
- * Press is a 120ms colour settle — no scale, no bounce, no squish.
- * Focus is the 3px indigo ring, never a browser outline.
+ * v3: the primary action is ink, not indigo. Secondary is a white control on an 8px radius
+ * whose stroke darkens on hover. Press settles at 98% — no bounce. Focus is a 2px indigo
+ * outline offset by 2px.
  */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors duration-120 ease-[var(--ease-out)] outline-none focus-visible:border-accent focus-visible:shadow-[var(--ring-accent)] disabled:opacity-45 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4 [&_svg]:stroke-[1.75]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap border font-semibold transition-all duration-400 ease-[var(--ease-out)] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4 [&_svg]:stroke-[1.75]",
   {
     variants: {
       variant: {
-        primary: "bg-accent text-on-accent border border-transparent hover:bg-accent-hover shadow-[var(--shadow-xs)]",
-        secondary: "bg-card text-strong border border-stroke hover:bg-hover shadow-[var(--shadow-xs)]",
-        ghost: "bg-transparent text-body border border-transparent hover:bg-hover",
-        danger: "bg-danger text-on-accent border border-transparent hover:brightness-95 focus-visible:shadow-[var(--ring-danger)]",
-        link: "bg-transparent text-accent-text underline-offset-2 hover:underline p-0 h-auto",
+        primary: "border-ink bg-ink text-card hover:border-[var(--n-700)] hover:bg-[var(--n-700)] dark:hover:border-[var(--n-200)] dark:hover:bg-[var(--n-200)]",
+        accent: "border-accent bg-accent text-on-accent hover:border-accent-hover hover:bg-accent-hover",
+        secondary: "border-stroke bg-card text-strong hover:border-stroke-hover",
+        ghost: "border-transparent bg-transparent text-muted hover:bg-hover hover:text-strong",
+        danger: "border-transparent bg-transparent text-danger hover:bg-danger-tint",
+        "danger-outline": "border-danger-border bg-card text-danger hover:border-danger hover:bg-danger-tint",
+        link: "h-auto border-transparent bg-transparent p-0 text-accent-text hover:text-accent-hover active:scale-100",
       },
       size: {
-        sm: "h-8 rounded-sm px-3 text-12",
-        md: "h-9 rounded-sm px-4 text-13",
-        lg: "h-11 rounded-md px-5 text-14",
-        icon: "size-9 rounded-sm px-0",
+        sm: "h-7 rounded-sm px-2.5 text-12",
+        md: "h-8 rounded-sm px-3 text-14",
+        lg: "h-10 rounded-sm px-4 text-14",
+        icon: "size-8 rounded-sm px-0",
       },
     },
     defaultVariants: { variant: "secondary", size: "md" },

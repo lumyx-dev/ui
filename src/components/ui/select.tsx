@@ -13,9 +13,9 @@ function SelectTrigger({ className, children, ...props }: React.ComponentProps<t
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        "flex h-9 w-full items-center justify-between gap-2 rounded-sm border border-stroke bg-card px-3 text-13 text-strong",
-        "shadow-[var(--shadow-xs)] outline-none transition-colors duration-120",
-        "focus-visible:border-accent focus-visible:shadow-[var(--ring-accent)] disabled:opacity-45 disabled:cursor-not-allowed",
+        "flex h-9 w-full items-center justify-between gap-2 rounded-sm border border-stroke bg-card px-3 text-14 text-strong",
+        "outline-none transition-colors duration-400 ease-[var(--ease-out)] hover:border-stroke-hover",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50 disabled:cursor-not-allowed",
         className
       )}
       {...props}
@@ -49,9 +49,9 @@ function SelectItem({ className, children, ...props }: React.ComponentProps<type
   return (
     <SelectPrimitive.Item
       className={cn(
-        "relative flex cursor-default select-none items-center gap-2 rounded-xs px-2.5 py-1.5 text-13 text-body outline-none",
+        "relative flex cursor-default select-none items-center gap-2 rounded-xs px-2.5 py-1.5 text-14 text-body outline-none",
         "data-[highlighted]:bg-hover data-[highlighted]:text-strong",
-        "data-[state=checked]:text-accent-text data-[disabled]:opacity-45",
+        "data-[state=checked]:text-accent-text data-[disabled]:opacity-50",
         className
       )}
       {...props}

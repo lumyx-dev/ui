@@ -153,8 +153,9 @@ scanClasses(
   new RegExp(`(?<![\\w-])(?:${COLOR_UTILS})-(?:black|white|(?:${PALETTE})-\\d{2,3})(?![\\w-])`, 'g'),
 );
 
-// 9. Durees de motion : 120ms teintes · 180ms par defaut · 260ms taille & position (styles.css).
-const DURATIONS = new Set(['0', '120', '180', '260']);
+// 9. Durees de motion (styles.css) : 120 / 180 / 260 pour les micro-teintes et les tailles,
+// 300 lignes · 400 controles · 500 lift de carte · 600 entree d'ecran (v3).
+const DURATIONS = new Set(['0', '120', '180', '260', '300', '400', '500', '600']);
 scanClasses('motion-duration', /(?<![\w-])duration-(\d+|\[[^\]]*\])/g, (m) => DURATIONS.has(m[1]));
 
 if (failures.length) {
