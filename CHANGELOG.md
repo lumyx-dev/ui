@@ -29,9 +29,11 @@ in the README.
 - Controls: `SegmentedControl`, `SearchField`, `UnitInput`; `Button` `danger-outline`; `Badge`
   `shape="chip"`; `Card` `interactive`; `Progress` `projected`.
 - Data viz: `StackedAreaChart`, `ChartLegend`, `LegendItem`, `TimeAxis`, `linePath` / `areaPath` /
-  `bandPath`; `TimeSeriesChart` gains `area`, `dashed`, `thresholds`, `band`, `playhead`, `max` and
-  `legend`.
-- Tones: `Tone`, `toneText` / `toneBg` / `toneVar`, `thresholdTone`, `scoreTone`, `Dot`,
+  `bandPath`; `TimeSeriesChart` gains `area`, `dashed`, `thresholds`, `band`, `playhead`,
+  `playheadColor`, `max`, `yAxis` and `legend`, and draws its labels in HTML so they keep their
+  shape at any width.
+- Tones: `Tone` (incl. `muted`), `toneText` / `toneBg` / `toneVar`, `thresholdTone` (with a
+  `healthy` tone for in-range values), `scoreTone`, `Dot`,
   `ScoreBar`, `EventFeed`, `InsetStat`, `MeterRow`; `MetricCard` `sub`, `subState`, `progress`,
   `bare`; `AlertBanner` `icon`, `action`, `onDismiss`; `CodeBlock`.
 - Tokens: `ink`, `on-ink`, `on-ink-accent`, `on-ink-border`, `chrome`, `chrome-border`,
