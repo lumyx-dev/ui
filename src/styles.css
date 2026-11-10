@@ -53,6 +53,8 @@
   --text-on-accent:var(--n-0);
   --text-on-overlay:var(--n-0);
   --text-on-ink:#dedede;
+  --text-on-ink-accent:var(--indigo-200);  /* highlighted code on an ink block */
+  --border-on-ink:var(--n-600);            /* a control sitting on an ink surface */
 
   --accent:var(--indigo-500);
   --accent-hover:var(--indigo-600);
@@ -60,6 +62,7 @@
   --accent-subtle:var(--indigo-25);
   --accent-border:var(--indigo-100);
   --accent-soft:var(--indigo-200);         /* projections stacked after an accent fill */
+  --accent-muted:var(--indigo-300);        /* a second indigo step: secondary paths, mid buckets */
   --accent-text:var(--indigo-500);
   --accent-2:var(--coral-300);
   --accent-2-tint:var(--coral-50);
@@ -140,6 +143,8 @@
   --text-faint:#707070;
   --text-on-accent:var(--n-0);
   --text-on-ink:var(--n-600);
+  --text-on-ink-accent:var(--indigo-500);
+  --border-on-ink:var(--n-300);
 
   --accent:var(--indigo-400);
   --accent-hover:#9484fa;
@@ -147,6 +152,7 @@
   --accent-subtle:rgba(124,104,248,.08);
   --accent-border:rgba(124,104,248,.34);
   --accent-soft:rgba(124,104,248,.45);
+  --accent-muted:var(--indigo-300);
   --accent-text:#a596fb;
   --accent-2:var(--coral-400);
   --accent-2-tint:rgba(255,138,92,.16);
@@ -201,12 +207,15 @@
   --color-on-accent: var(--text-on-accent);
   --color-on-overlay: var(--text-on-overlay);
   --color-on-ink: var(--text-on-ink);
+  --color-on-ink-accent: var(--text-on-ink-accent);
+  --color-on-ink-border: var(--border-on-ink);
 
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-tint: var(--accent-tint);
   --color-accent-subtle: var(--accent-subtle);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-muted: var(--accent-muted);
   --color-accent-border: var(--accent-border);
   --color-accent-text: var(--accent-text);
   --color-accent2: var(--accent-2);
@@ -264,9 +273,9 @@
   /* Space — 4px base with 2px and 6px steps */
   --spacing: 4px;
 
-  /* Radii — 6 chips & segment thumbs · 8 controls · 12 panels inside a card · 16 cards
+  /* Radii — 4 swatches & tiny labels · 6 chips & segment thumbs · 8 controls · 12 panels inside a card · 16 cards
      · 24 sheets · pill for badges, dots and meters. */
-  --radius-xs: 6px; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+  --radius-2xs: 4px; --radius-xs: 6px; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
   --radius-xl: 24px; --radius-pill: 9999px;
 
   --shadow-xs: var(--shadow-xs);

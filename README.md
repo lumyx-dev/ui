@@ -85,6 +85,15 @@ class names are unchanged, their values are not:
   which still renders but is deprecated. `SidebarBrand` and `SidebarPanel` build the
   sidebar head and foot; `SidebarNav` items take `count` and `dot`.
 - **Feedback.** `AlertBanner` takes `icon`, `action` and `onDismiss`; `CodeBlock` is new.
+- **Data viz.** `TimeSeriesChart` takes per-series `area` and `dashed`, `thresholds`, a `band`
+  (p50–p95), a `playhead`, a fixed `max`, and `legend={false}` to move the legend into the card
+  header with `ChartLegend`. New: `StackedAreaChart`, `LegendItem`, `TimeAxis`, and the
+  `linePath` / `areaPath` / `bandPath` helpers for hand-drawn charts.
+- **Tones.** `Tone` with `toneText` / `toneBg` / `toneVar`, `thresholdTone` and `scoreTone`.
+  `Dot` is a still tone dot (`StatusDot` breathes while live). `ScoreBar`, `EventFeed` (two-line),
+  `InsetStat`, `MeterRow`, `SearchField`, `UnitInput`; `MetricCard` takes `progress`.
+- **Tokens added.** `accent-muted` (second indigo step), `text-on-ink-accent`, `on-ink-border`,
+  and a 4px `rounded-2xs`.
 
 ## Routing
 
