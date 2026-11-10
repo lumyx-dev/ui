@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from '../../lib/utils';
 import { Sparkline } from "./sparkline";
+import { Progress } from "../ui/progress";
 
 export type MetricState = "ok" | "warn" | "danger" | "neutral";
 
@@ -22,7 +23,7 @@ const SIZE = {
  * and a 64×20 sparkline on the right. A coloured number always means a threshold was crossed.
  */
 export function MetricCard({
-  label, value, unit, state = "ok", size = "lg", threshold, sub, subState, series, seriesColor, bare = false, className,
+  label, value, unit, state = "ok", size = "lg", threshold, sub, subState, series, seriesColor, bare = false, progress, className,
 }: {
   label: string;
   value: string | number;
@@ -39,6 +40,8 @@ export function MetricCard({
   seriesColor?: string;
   /** Drop the card frame — for metrics placed inside another card. */
   bare?: boolean;
+  /** An 8px meter under the value — capacity, quota. `projected` stacks a lighter segment. */
+  progress?: { value: number; projected?: number; indicatorClassName?: string };
   className?: string;
 }) {
   const context = sub ?? threshold;
@@ -50,6 +53,14 @@ export function MetricCard({
         <span className={cn("sl-num font-semibold tracking-[-0.02em]", SIZE[size].value, INK[state])}>{value}</span>
         {unit ? <span className={cn(SIZE[size].unit, "text-faint")}>{unit}</span> : null}
       </span>
+      {progress ? (
+        <Progress
+          value={progress.value}
+          projected={progress.projected}
+          indicatorClassName={progress.indicatorClassName ?? (state === "danger" ? "bg-danger-solid" : state === "warn" ? "bg-warn-solid" : undefined)}
+          aria-label={label}
+        />
+      ) : null}
       {context != null || series ? (
         <span className="flex items-center justify-between gap-2">
           {context != null ? (
