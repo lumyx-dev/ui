@@ -9,7 +9,7 @@ import { extendTailwindMerge } from "tailwind-merge";
  */
 // "code" n'est pas sur l'echelle numerique mais c'est bien une taille (12.5px) : sans lui,
 // tailwind-merge classe `text-code` en couleur et cn("text-muted text-code") en perd une.
-const FONT_SIZES = ["11", "12", "13", "14", "16", "20", "26", "34", "44", "code"];
+const FONT_SIZES = ["11", "12", "13", "14", "16", "20", "24", "26", "30", "34", "36", "44", "code"];
 
 const twMerge = extendTailwindMerge({
   extend: {

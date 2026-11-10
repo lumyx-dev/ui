@@ -1,11 +1,11 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 
-/** Ligne 2 de la grille du SidebarInset — la seule zone qui scrolle. */
+/** Row 2 of the SidebarInset grid — the only area that scrolls. 1400px, 24px gutter, 16px rhythm. */
 export function PageBody({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <div className="sl-scroll row-start-2 min-w-0 overflow-y-auto">
-      <div className={cn("mx-auto w-full max-w-[1360px] px-4 py-6 lg:px-8", className)}>{children}</div>
+      <div className={cn("sl-enter mx-auto flex w-full max-w-[1400px] flex-col gap-4 p-4 lg:p-6", className)}>{children}</div>
     </div>
   );
 }

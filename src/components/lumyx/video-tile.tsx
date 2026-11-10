@@ -4,7 +4,7 @@ import { StatusDot, type Status } from "./status-dot";
 import { QualityIndicator, type Quality } from "./quality";
 
 /**
- * 16:10, object-fit cover, 18px radius. One capsule bottom-left (dot + peer id +
+ * 16:10, object-fit cover, 16px radius. One capsule bottom-left (dot + peer id +
  * latency), one quality capsule top-right. Empty shows a camera-off glyph and "No stream".
  */
 export function VideoTile({
@@ -22,7 +22,7 @@ export function VideoTile({
           <span className="text-12">No stream</span>
         </div>
       )}
-      <span className="absolute bottom-3 left-3 flex items-center gap-2 rounded-pill bg-[var(--surface-overlay)] px-2.5 py-1 text-11 text-on-overlay backdrop-blur-[6px]">
+      <span className="absolute bottom-3 left-3 flex items-center gap-2 rounded-pill bg-[var(--surface-overlay)] px-2.5 py-1 text-12 text-on-overlay backdrop-blur-[6px]">
         <StatusDot status={status} />
         <span className="sl-num">{peerId}</span>
         {latencyMs != null ? <span className="sl-num opacity-70">{latencyMs}ms</span> : null}

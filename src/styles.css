@@ -1,79 +1,91 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================================
-   Lumyx design tokens — verbatim from the design system.
-   tokens/palette.css · semantic.css · typography.css · spacing.css · radius.css
-   · elevation.css · motion.css · base.css
+   Lumyx design tokens — v3 (Cloud UI v3 / Dashboard UI v3).
+   Neutral greys carry 90% of the surface, numbers and identifiers are set in
+   Geist Mono, the primary action is ink, indigo marks selection and data.
    ========================================================================== */
 :root {
-  /* Neutrals — near-neutral with a faint cool cast. The system is 90% these. */
-  --n-0:#ffffff; --n-25:#fbfbfc; --n-50:#f5f6f8; --n-100:#ebedf1; --n-150:#e4e7ec;
-  --n-200:#dee1e7; --n-300:#c6cad4; --n-400:#9298a6; --n-500:#6b7180; --n-600:#4d5361;
-  --n-700:#383d49; --n-800:#23262e; --n-900:#15171c; --n-950:#0b0c10;
+  /* Neutrals — true greys. 25 is the page, 50 the hover tint, 150 the card stroke,
+     200 the control stroke, 300 the hovered stroke, 900 the ink. */
+  --n-0:#ffffff; --n-25:#fafafa; --n-50:#f4f4f4; --n-100:#efefef; --n-150:#eaeaea;
+  --n-200:#e5e5e5; --n-300:#c8c8c8; --n-400:#999999; --n-500:#666666; --n-600:#3a3a3a;
+  --n-700:#2a2a2a; --n-800:#1a1a1a; --n-900:#0a0a0a; --n-950:#050505;
 
   /* Accent — indigo. Primary action, selected row, focus ring, primary series. */
-  --indigo-50:#eeecfe; --indigo-100:#ded8fd; --indigo-400:#7c68f8; --indigo-500:#4f39f6;
+  --indigo-25:#f7f5ff; --indigo-50:#eeebfe; --indigo-100:#d9d3fd; --indigo-200:#b9aefc;
+  --indigo-300:#8f7ff9; --indigo-400:#7c68f8; --indigo-500:#4f39f6;
   --indigo-600:#3d24d9; --indigo-700:#2f1aa8; --indigo-900:#1e1170;
 
   /* Secondary — coral. The room / session axis, against indigo's peer axis. */
-  --coral-50:#fff0ea; --coral-400:#ff8a5c; --coral-500:#f0521f; --coral-600:#c93c0f;
+  --coral-50:#fff0ea; --coral-300:#ff8f70; --coral-400:#ff8a5c; --coral-500:#f0521f; --coral-600:#c93c0f;
 
   /* Semantics — 500s are fills/dots/strokes, 600s are the light-theme ink. */
-  --green-50:#e6f9ef; --green-400:#34c77b; --green-500:#0fa15c; --green-600:#0a7a45;
-  --amber-50:#fff4de; --amber-400:#f9b23c; --amber-500:#dd8a00; --amber-600:#9a5f00;
-  --red-50:#ffecea;   --red-400:#ff6b5a;   --red-500:#e5342a;   --red-600:#b8201c;
-  --blue-50:#e9f1ff;  --blue-400:#5b9bff;  --blue-500:#2f6df0;  --blue-600:#1f4fc0;
+  /* Semantics — one ink per tone (dots, strokes, text), a tint, and a stroke for banners. */
+  --green-50:#e8f6ec; --green-200:#a7ddb7; --green-400:#34c77b; --green-500:#16a34a; --green-600:#16a34a;
+  --amber-50:#fdf3e3; --amber-200:#f2c98a; --amber-400:#f9b23c; --amber-500:#d97706; --amber-600:#d97706;
+  --red-50:#fdecec;   --red-200:#f6c9ca;   --red-400:#ff6b5a;   --red-500:#e5484d;   --red-600:#e5484d;
+  --blue-50:#e9f1ff;  --blue-200:#bcd3ff;  --blue-400:#5b9bff;  --blue-500:#2f6df0;  --blue-600:#1f4fc0;
 
-  --series-1:#4f39f6; --series-2:#f0521f; --series-3:#0fa15c; --series-4:#dd8a00; --series-5:#6b7180;
+  --series-1:#4f39f6; --series-2:#ff8f70; --series-3:#16a34a; --series-4:#d97706; --series-5:#999999;
 
   /* ── Semantic aliases (light is the default) ── */
-  --surface-page:var(--n-50);
+  --surface-page:var(--n-25);
   --surface-card:var(--n-0);
   --surface-sunken:var(--n-25);
-  --surface-inset:var(--n-50);
+  --surface-inset:var(--n-25);
   --surface-hover:var(--n-50);
   --surface-active:var(--n-100);
-  --surface-overlay:rgba(11,12,16,.55);
+  --surface-overlay:rgba(10,10,10,.24);
+  --surface-chrome:rgba(255,255,255,.8);   /* the sticky top bar, over a 16px blur */
+  --surface-ink:var(--n-900);              /* code blocks, the primary button */
 
-  --border-hairline:var(--n-100);
-  --border-strong:var(--n-150);
-  --border-subtle:#f1f2f6;
+  --border-hairline:var(--n-150);          /* cards */
+  --border-strong:var(--n-200);            /* controls */
+  --border-hover:var(--n-300);             /* a hovered control or card */
+  --border-subtle:var(--n-50);             /* rows inside a card */
+  --border-chrome:var(--n-100);            /* sidebar and top bar edges */
 
   --text-strong:var(--n-900);
-  --text-body:var(--n-700);
+  --text-body:var(--n-600);
   --text-muted:var(--n-500);
   --text-faint:var(--n-400);
   --text-on-accent:var(--n-0);
   --text-on-overlay:var(--n-0);
+  --text-on-ink:#dedede;
 
   --accent:var(--indigo-500);
   --accent-hover:var(--indigo-600);
   --accent-tint:var(--indigo-50);
+  --accent-subtle:var(--indigo-25);
   --accent-border:var(--indigo-100);
-  --accent-text:var(--indigo-600);
-  --accent-2:var(--coral-500);
+  --accent-soft:var(--indigo-200);         /* projections stacked after an accent fill */
+  --accent-text:var(--indigo-500);
+  --accent-2:var(--coral-300);
   --accent-2-tint:var(--coral-50);
 
-  --ok:var(--green-600);   --ok-tint:var(--green-50);   --ok-solid:var(--green-500);
-  --warn:var(--amber-600); --warn-tint:var(--amber-50); --warn-solid:var(--amber-500);
-  --danger:var(--red-600); --danger-tint:var(--red-50); --danger-solid:var(--red-500);
-  --info:var(--blue-600);  --info-tint:var(--blue-50);  --info-solid:var(--blue-500);
-  --idle:var(--n-400);     --idle-tint:var(--n-100);
+  --ok:var(--green-600);   --ok-tint:var(--green-50);   --ok-solid:var(--green-500);   --ok-border:var(--green-200);
+  --warn:var(--amber-600); --warn-tint:var(--amber-50); --warn-solid:var(--amber-500); --warn-border:var(--amber-200);
+  --danger:var(--red-600); --danger-tint:var(--red-50); --danger-solid:var(--red-500); --danger-border:var(--red-200);
+  --info:var(--blue-600);  --info-tint:var(--blue-50);  --info-solid:var(--blue-500);  --info-border:var(--blue-200);
+  --idle:var(--n-300);     --idle-tint:var(--n-50);
 
-  /* Elevation — real, soft, neutral. No coloured glow, ever. */
-  --shadow-xs:0 1px 2px rgba(21,23,28,.05);
-  --shadow-sm:0 1px 3px rgba(21,23,28,.07), 0 1px 2px rgba(21,23,28,.04);
-  --shadow-md:0 6px 16px -4px rgba(21,23,28,.11), 0 2px 6px -2px rgba(21,23,28,.06);
-  --shadow-lg:0 16px 40px -12px rgba(21,23,28,.17), 0 4px 12px -6px rgba(21,23,28,.09);
-  --ring-accent:0 0 0 3px rgba(79,57,246,.20);
-  --ring-danger:0 0 0 3px rgba(184,32,28,.20);
+  /* Elevation — cards rest flat on their stroke; shadow only lifts. */
+  --shadow-xs:0 1px 2px rgba(10,10,10,.08);
+  --shadow-sm:0 1px 2px rgba(10,10,10,.04);
+  --shadow-md:0 8px 24px rgba(10,10,10,.06);
+  --shadow-lg:0 16px 40px -12px rgba(10,10,10,.2);
+  --shadow-danger:0 4px 24px rgba(229,72,77,.08);
+  --ring-accent:0 0 0 2px var(--surface-card), 0 0 0 4px var(--accent);
+  --ring-danger:0 0 0 2px var(--surface-card), 0 0 0 4px var(--danger);
   --blur-overlay:blur(6px);
+  --blur-chrome:blur(16px);
 
   /* Layout */
-  --content-max:1360px; --sidebar-w:248px; --rail-w:340px;
+  --content-max:1400px; --sidebar-w:248px; --rail-w:340px; --topbar-h:56px;
 
   /* ── shadcn/ui contract, re-pointed at the tokens above ── */
-  --radius:18px;                     /* card radius — shadcn derives sm/md/lg/xl from this */
+  --radius:16px;                     /* card radius — shadcn derives sm/md/lg/xl from this */
   --background:var(--surface-page);
   --foreground:var(--text-body);
   --card:var(--surface-card);
@@ -107,43 +119,49 @@
 
 .dark {
   --surface-page:var(--n-950);
-  --surface-card:var(--n-900);
-  --surface-sunken:#101216;
-  --surface-inset:#101216;
+  --surface-card:#111111;
+  --surface-sunken:#0d0d0d;
+  --surface-inset:#0d0d0d;
   --surface-hover:var(--n-800);
   --surface-active:var(--n-700);
-  --surface-overlay:rgba(6,7,10,.66);
+  --surface-overlay:rgba(0,0,0,.6);
+  --surface-chrome:rgba(17,17,17,.8);
+  --surface-ink:var(--n-0);
 
-  --border-hairline:#22262e;
-  --border-strong:#2f343d;
-  --border-subtle:#191c22;
+  --border-hairline:#222222;
+  --border-strong:#2a2a2a;
+  --border-hover:#3a3a3a;
+  --border-subtle:#1a1a1a;
+  --border-chrome:#1f1f1f;
 
-  --text-strong:var(--n-50);
-  --text-body:var(--n-200);
-  --text-muted:var(--n-400);
-  --text-faint:var(--n-500);
+  --text-strong:#ededed;
+  --text-body:#c8c8c8;
+  --text-muted:#a0a0a0;
+  --text-faint:#707070;
   --text-on-accent:var(--n-0);
+  --text-on-ink:var(--n-600);
 
   --accent:var(--indigo-400);
   --accent-hover:#9484fa;
   --accent-tint:rgba(124,104,248,.16);
+  --accent-subtle:rgba(124,104,248,.08);
   --accent-border:rgba(124,104,248,.34);
+  --accent-soft:rgba(124,104,248,.45);
   --accent-text:#a596fb;
   --accent-2:var(--coral-400);
   --accent-2-tint:rgba(255,138,92,.16);
 
-  --ok:var(--green-400);   --ok-tint:rgba(52,199,123,.16);  --ok-solid:var(--green-400);
-  --warn:var(--amber-400); --warn-tint:rgba(249,178,60,.16); --warn-solid:var(--amber-400);
-  --danger:var(--red-400); --danger-tint:rgba(255,107,90,.16); --danger-solid:var(--red-400);
-  --info:var(--blue-400);  --info-tint:rgba(91,155,255,.16); --info-solid:var(--blue-400);
+  --ok:var(--green-400);   --ok-tint:rgba(52,199,123,.16);  --ok-solid:var(--green-400);  --ok-border:rgba(52,199,123,.34);
+  --warn:var(--amber-400); --warn-tint:rgba(249,178,60,.16); --warn-solid:var(--amber-400); --warn-border:rgba(249,178,60,.34);
+  --danger:var(--red-400); --danger-tint:rgba(255,107,90,.16); --danger-solid:var(--red-400); --danger-border:rgba(255,107,90,.34);
+  --info:var(--blue-400);  --info-tint:rgba(91,155,255,.16); --info-solid:var(--blue-400); --info-border:rgba(91,155,255,.34);
   --idle:var(--n-500);     --idle-tint:var(--n-800);
 
   --shadow-xs:0 1px 2px rgba(0,0,0,.4);
   --shadow-sm:0 1px 3px rgba(0,0,0,.45);
-  --shadow-md:0 8px 20px -6px rgba(0,0,0,.55);
+  --shadow-md:0 8px 24px rgba(0,0,0,.5);
   --shadow-lg:0 20px 48px -16px rgba(0,0,0,.65);
-  --ring-accent:0 0 0 3px rgba(124,104,248,.28);
-  --ring-danger:0 0 0 3px rgba(255,107,90,.24);
+  --shadow-danger:0 4px 24px rgba(255,107,90,.12);
 }
 
 /* ============================================================================
@@ -163,6 +181,8 @@
   --color-page: var(--surface-page);
   --color-card: var(--surface-card);
   --color-sunken: var(--surface-sunken);
+  --color-chrome: var(--surface-chrome);
+  --color-ink: var(--surface-ink);
   --color-inset: var(--surface-inset);
   --color-hover: var(--surface-hover);
   --color-active: var(--surface-active);
@@ -171,6 +191,8 @@
   --color-hairline: var(--border-hairline);
   --color-stroke: var(--border-strong);
   --color-subtle: var(--border-subtle);
+  --color-stroke-hover: var(--border-hover);
+  --color-chrome-border: var(--border-chrome);
 
   --color-strong: var(--text-strong);
   --color-body: var(--text-body);
@@ -178,19 +200,22 @@
   --color-faint: var(--text-faint);
   --color-on-accent: var(--text-on-accent);
   --color-on-overlay: var(--text-on-overlay);
+  --color-on-ink: var(--text-on-ink);
 
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-tint: var(--accent-tint);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-soft: var(--accent-soft);
   --color-accent-border: var(--accent-border);
   --color-accent-text: var(--accent-text);
   --color-accent2: var(--accent-2);
   --color-accent2-tint: var(--accent-2-tint);
 
-  --color-ok: var(--ok);         --color-ok-tint: var(--ok-tint);         --color-ok-solid: var(--ok-solid);
-  --color-warn: var(--warn);     --color-warn-tint: var(--warn-tint);     --color-warn-solid: var(--warn-solid);
-  --color-danger: var(--danger); --color-danger-tint: var(--danger-tint); --color-danger-solid: var(--danger-solid);
-  --color-info: var(--info);     --color-info-tint: var(--info-tint);     --color-info-solid: var(--info-solid);
+  --color-ok: var(--ok);         --color-ok-tint: var(--ok-tint);         --color-ok-solid: var(--ok-solid); --color-ok-border: var(--ok-border);
+  --color-warn: var(--warn);     --color-warn-tint: var(--warn-tint);     --color-warn-solid: var(--warn-solid); --color-warn-border: var(--warn-border);
+  --color-danger: var(--danger); --color-danger-tint: var(--danger-tint); --color-danger-solid: var(--danger-solid); --color-danger-border: var(--danger-border);
+  --color-info: var(--info);     --color-info-tint: var(--info-tint);     --color-info-solid: var(--info-solid); --color-info-border: var(--info-border);
   --color-idle: var(--idle);     --color-idle-tint: var(--idle-tint);
 
   --color-series-1: var(--series-1); --color-series-2: var(--series-2);
@@ -221,34 +246,41 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Type scale — 11 · 12 · 13 · 14 · 16 · 20 · 26 · 34 · 44 */
-  --text-11: 11px;  --text-11--line-height: 1.4;
-  --text-12: 12px;  --text-12--line-height: 1.4;
-  --text-13: 13px;  --text-13--line-height: 1.4;
-  --text-14: 14px;  --text-14--line-height: 1.4;   --text-14--letter-spacing: -0.01em;
-  --text-16: 16px;  --text-16--line-height: 1.5;   --text-16--letter-spacing: -0.01em;
-  --text-20: 20px;  --text-20--line-height: 1.3;   --text-20--letter-spacing: -0.02em;
-  --text-26: 26px;  --text-26--line-height: 1.25;  --text-26--letter-spacing: -0.02em;
-  --text-34: 34px;  --text-34--line-height: 1.15;  --text-34--letter-spacing: -0.02em;
-  --text-44: 44px;  --text-44--line-height: 1.1;   --text-44--letter-spacing: -0.02em;
+  /* Type scale — 11 · 12 · 13 · 14 · 16 · 20 · 24 · 26 · 30 · 34 · 36 · 44, on a 4px line grid.
+     14/20 is the interface default; 24/32 is a page title; 30–36 are headline numbers. */
+  --text-11: 11px;  --text-11--line-height: 16px;
+  --text-12: 12px;  --text-12--line-height: 16px;
+  --text-13: 13px;  --text-13--line-height: 20px;
+  --text-14: 14px;  --text-14--line-height: 20px;
+  --text-16: 16px;  --text-16--line-height: 24px;
+  --text-20: 20px;  --text-20--line-height: 28px;
+  --text-24: 24px;  --text-24--line-height: 32px;  --text-24--letter-spacing: -0.02em;
+  --text-26: 26px;  --text-26--line-height: 32px;  --text-26--letter-spacing: -0.02em;
+  --text-30: 30px;  --text-30--line-height: 36px;  --text-30--letter-spacing: -0.02em;
+  --text-34: 34px;  --text-34--line-height: 40px;  --text-34--letter-spacing: -0.02em;
+  --text-36: 36px;  --text-36--line-height: 40px;  --text-36--letter-spacing: -0.03em;
+  --text-44: 44px;  --text-44--line-height: 48px;  --text-44--letter-spacing: -0.02em;
 
   /* Space — 4px base with 2px and 6px steps */
   --spacing: 4px;
 
-  /* Radii — nothing has a hard corner except the page */
-  --radius-xs: 8px; --radius-sm: 12px; --radius-md: 14px; --radius-lg: 18px;
-  --radius-xl: 24px; --radius-pill: 999px;
+  /* Radii — 6 chips & segment thumbs · 8 controls · 12 panels inside a card · 16 cards
+     · 24 sheets · pill for badges, dots and meters. */
+  --radius-xs: 6px; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+  --radius-xl: 24px; --radius-pill: 9999px;
 
   --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
 
-  /* Motion — 120ms tints · 180ms default · 260ms size & position */
-  --ease-out: cubic-bezier(.2,.6,.2,1);
+  /* Motion — one curve. 300ms rows · 400ms controls · 500ms card lift · 600ms screen entry.
+     120/180/260 stay for micro tints and size changes. */
+  --ease-out: cubic-bezier(0.32,0.72,0,1);
   --ease-in-out: cubic-bezier(.4,0,.2,1);
-  --animate-breathe: sl-breathe 2.6s var(--ease-in-out) infinite;
+  --animate-breathe: sl-breathe 2.4s var(--ease-in-out) infinite;
   --animate-shimmer: sl-shimmer 1.6s linear infinite;
+  --animate-enter: sl-enter 600ms var(--ease-out);
 }
 
 /* ============================================================================
@@ -269,7 +301,8 @@
   --code-punct:    var(--text-faint);
 }
 
-@keyframes sl-breathe { 0%,100% { opacity: 1 } 50% { opacity: .5 } }
+@keyframes sl-breathe { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+@keyframes sl-enter { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
 @keyframes sl-shimmer { 0% { transform: translateX(-100%) } 100% { transform: translateX(100%) } }
 @keyframes sl-marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 
@@ -277,30 +310,50 @@
   * { border-color: var(--border-hairline); }
   body {
     background: var(--surface-page);
-    color: var(--text-body);
+    color: var(--text-strong);
     font-family: var(--font-sans);
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 14px;
+    line-height: 20px;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4 {
     color: var(--text-strong);
     font-weight: 600;
-    letter-spacing: -0.01em;
   }
+  p { text-wrap: pretty; }
   a { color: var(--accent-text); text-decoration: none; }
-  a:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-hover); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   ::selection { background: var(--accent-tint); color: var(--text-strong); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
 }
 
-@utility sl-num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+/* Numbers, identifiers, regions, keys: Geist Mono with tabular figures. */
+@utility sl-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1;
+}
 
-/* The one typographic mannerism in the system. */
+/* Tabular figures without leaving the sans — for prose that carries a count. */
+@utility sl-tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+/* Micro-labels — metric labels, table headers, sidebar sections. Sentence case, faint. */
 @utility sl-label {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--text-muted);
+  font-size: 12px; line-height: 16px; font-weight: 500; color: var(--text-faint);
 }
+
+/* A card that rises on hover: stroke darkens, 2px lift, soft shadow. */
+@utility sl-lift {
+  transition-property: border-color, transform, box-shadow;
+  transition-duration: 500ms; transition-timing-function: var(--ease-out);
+  &:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+}
+
+/* Screen entry — 600ms fade and 8px rise, once. */
+@utility sl-enter { animation: var(--animate-enter); }
 
 @utility sl-scroll {
   scrollbar-width: thin;
