@@ -11,45 +11,71 @@ import {
   SidebarMenuItem,
 } from "../ui/sidebar";
 
-export type NavSection = {
+export type NavDot = "danger" | "warn" | "ok" | "accent";
+
+export type NavItem = {
+  href: string;
   label: string;
-  items: { href: string; label: string; icon: React.ElementType }[];
+  icon: React.ElementType;
+  /** A count shown at the right edge, in mono — peers, rooms, open alerts. */
+  count?: string | number;
+  /** An 8px dot at the right edge — something on that screen needs a look. */
+  dot?: NavDot;
 };
 
-/** La nav de la sidebar : groupes, item actif, identite visuelle Lumyx. */
+export type NavSection = {
+  /** Omit for the first group when it needs no heading. */
+  label?: string;
+  items: NavItem[];
+};
+
+const DOT: Record<NavDot, string> = {
+  danger: "bg-danger-solid",
+  warn: "bg-warn-solid",
+  ok: "bg-ok-solid",
+  accent: "bg-accent",
+};
+
+/** v3 sidebar nav: 14px rows on an 8px radius; the current page is an indigo tint, semibold. */
 export function SidebarNav({
   sections,
   ariaLabel,
   activeHref,
+  isActive,
 }: {
   sections: NavSection[];
   ariaLabel: string;
   /** Force l'item actif ; par defaut, le `pathname` du `LumyxLinkProvider`. */
   activeHref?: string;
+  /** Matching rule when an item owns nested routes; defaults to strict equality. */
+  isActive?: (href: string, pathname: string) => boolean;
 }) {
   const { Link, pathname: contextPathname } = useLumyxLink();
   const pathname = activeHref ?? contextPathname;
+  const match = isActive ?? ((href: string, path: string) => href === path);
   return (
-    <nav aria-label={ariaLabel} className="flex flex-col gap-5">
-      {sections.map((section) => (
-        <SidebarGroup key={section.label} className="gap-1 px-0 py-0">
-          <SidebarGroupLabel className="sl-label h-auto px-2 pb-1 text-11">
-            {section.label}
-          </SidebarGroupLabel>
+    <nav aria-label={ariaLabel} className="flex flex-col">
+      {sections.map((section, si) => (
+        <SidebarGroup key={section.label ?? si} className="gap-0.5 px-0 py-0">
+          {section.label ? (
+            <SidebarGroupLabel className="h-auto rounded-none px-3 pt-4 pb-1 text-12 font-semibold text-faint">
+              {section.label}
+            </SidebarGroupLabel>
+          ) : null}
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="gap-0.5">
               {section.items.map((item) => {
-                const active = pathname === item.href;
+                const active = pathname != null && match(item.href, pathname);
                 return (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       asChild
                       isActive={active}
                       className={cn(
-                        "h-auto gap-2.5 rounded-sm px-2 py-1.5 text-13 transition-colors duration-120",
+                        "h-auto gap-3 rounded-sm px-3 py-2 text-14 transition-all duration-400 ease-[var(--ease-out)]",
                         active
-                          ? "bg-accent-tint font-medium text-accent-text shadow-[inset_2px_0_0_var(--accent)] hover:bg-accent-tint hover:text-accent-text"
-                          : "text-body hover:bg-hover hover:text-strong",
+                          ? "bg-accent-tint font-semibold text-accent-text hover:bg-accent-tint hover:text-accent-text data-[active=true]:bg-accent-tint data-[active=true]:text-accent-text"
+                          : "text-muted hover:bg-hover hover:text-strong",
                       )}
                     >
                       <Link
@@ -58,7 +84,13 @@ export function SidebarNav({
                         className="no-underline hover:no-underline"
                       >
                         <item.icon className="size-4 shrink-0 stroke-[1.75]" />
-                        <span>{item.label}</span>
+                        <span className="flex-1">{item.label}</span>
+                        {item.count != null ? (
+                          <span className="sl-num text-12 font-normal text-faint">{item.count}</span>
+                        ) : null}
+                        {item.dot ? (
+                          <span aria-hidden className={cn("size-2 shrink-0 rounded-pill", DOT[item.dot])} />
+                        ) : null}
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

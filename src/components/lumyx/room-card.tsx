@@ -17,25 +17,25 @@ export type Room = {
 export function RoomCard({ room, href, className }: { room: Room; href?: string; className?: string }) {
   const { Link } = useLumyxLink();
   const body = (
-    <div className={cn("rounded-lg border border-hairline bg-card p-5 shadow-[var(--shadow-sm)] transition-shadow duration-180 hover:shadow-[var(--shadow-md)]", className)}>
+    <div className={cn("sl-lift rounded-lg border border-hairline bg-card p-4", className)}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1">
           <span className="flex items-center gap-2">
             <StatusDot status={room.status} />
-            <span className="text-14 font-semibold text-strong">{room.id}</span>
+            <span className="sl-num text-14 font-semibold text-strong">{room.id}</span>
           </span>
-          <span className="sl-num text-12 text-muted">{room.region} · {room.durationLabel}</span>
+          <span className="sl-num text-12 text-faint">{room.region} · {room.durationLabel}</span>
         </div>
         <Badge tone="room">{room.peers} peers</Badge>
       </div>
-      <div className="mt-5 grid grid-cols-2 gap-4 border-t border-subtle pt-4">
+      <div className="mt-4 grid grid-cols-2 gap-4 border-t border-subtle pt-3">
         <div className="flex flex-col gap-1">
           <span className="sl-label">Bitrate</span>
-          <span className="sl-num text-14 font-medium text-strong">{room.bitrateLabel}</span>
+          <span className="sl-num text-16 font-semibold text-strong">{room.bitrateLabel}</span>
         </div>
         <div className="flex flex-col gap-1">
           <span className="sl-label">Worst loss</span>
-          <span className={cn("sl-num text-14 font-medium", room.worstLossPct >= 2 ? "text-danger" : "text-strong")}>
+          <span className={cn("sl-num text-16 font-semibold", room.worstLossPct >= 2 ? "text-danger" : "text-strong")}>
             {room.worstLossPct.toFixed(2)}%
           </span>
         </div>

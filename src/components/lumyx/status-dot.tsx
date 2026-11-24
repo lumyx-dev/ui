@@ -12,16 +12,22 @@ const TONE: Record<Status, string> = {
 };
 
 /**
- * Status is a dot, never an icon and never an emoji.
- * The only loop in the system: a 2.6s breath on live / connecting.
+ * Status is an 8px dot, never an icon and never an emoji.
+ * The only loop in the system: a 2.4s breath on live / connecting.
  */
-export function StatusDot({ status = "idle", className }: { status?: Status; className?: string }) {
+export function StatusDot({ status = "idle", size = "md", className }: { status?: Status; size?: "sm" | "md"; className?: string }) {
   const breathes = status === "live" || status === "connecting";
   return (
     <span
       role="img"
       aria-label={status}
-      className={cn("inline-block size-1.5 shrink-0 rounded-pill", TONE[status], breathes && "animate-[var(--animate-breathe)]", className)}
+      className={cn(
+        "inline-block shrink-0 rounded-pill",
+        size === "sm" ? "size-1.5" : "size-2",
+        TONE[status],
+        breathes && "animate-[var(--animate-breathe)]",
+        className,
+      )}
     />
   );
 }

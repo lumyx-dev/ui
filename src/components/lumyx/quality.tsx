@@ -20,7 +20,7 @@ export function QualityIndicator({ quality, showLabel = false, className }: { qu
           <span
             key={i}
             className="w-1 rounded-[1px]"
-            style={{ height: 3 + i * 2, background: i <= active ? COLOR[quality] : "var(--n-200)" }}
+            style={{ height: 3 + i * 2, background: i <= active ? COLOR[quality] : "var(--border-strong)" }}
           />
         ))}
       </span>
@@ -33,7 +33,7 @@ export function QualityIndicator({ quality, showLabel = false, className }: { qu
 export function LatencyChip({ ms, plain = false, className }: { ms: number; plain?: boolean; className?: string }) {
   const state = ms < 80 ? "ok" : ms < 150 ? "warn" : "danger";
   const ink = state === "ok" ? "text-muted" : state === "warn" ? "text-warn" : "text-danger";
-  if (plain) return <span className={cn("sl-num text-13", ink, className)}>{ms}ms</span>;
+  if (plain) return <span className={cn("sl-num text-14", ink, className)}>{ms}ms</span>;
   const tint = state === "ok" ? "bg-ok-tint text-ok" : state === "warn" ? "bg-warn-tint text-warn" : "bg-danger-tint text-danger";
-  return <span className={cn("sl-num inline-flex items-center rounded-pill px-2 py-0.5 text-11 font-medium", tint, className)}>{ms}ms</span>;
+  return <span className={cn("sl-num inline-flex items-center rounded-pill px-2 py-0.5 text-12", tint, className)}>{ms}ms</span>;
 }

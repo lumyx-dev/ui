@@ -91,12 +91,13 @@ describe('verify-ds regle 8 — couleurs par token', () => {
 });
 
 describe('verify-ds regle 9 — durees de motion', () => {
-  test('accepte 120 / 180 / 260', () => {
+  test('accepte 120 / 180 / 260 et 300 / 400 / 500 / 600', () => {
     expect(runWith('export const A = () => <p className="duration-120 hover:duration-260" />;\n').code).toBe(0);
+    expect(runWith('export const A = () => <p className="duration-300 hover:duration-400 duration-500 duration-600" />;\n').code).toBe(0);
   });
 
   test('refuse une duree hors systeme', () => {
-    const { code, output } = runWith('export const A = () => <p className="duration-300" />;\n');
+    const { code, output } = runWith('export const A = () => <p className="duration-200" />;\n');
     expect(code).toBe(1);
     expect(output).toContain('motion-duration');
   });

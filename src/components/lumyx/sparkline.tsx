@@ -2,8 +2,8 @@ import { cn } from '../../lib/utils';
 
 /** The only permitted gradient: a 14%→0 fade under a line, in that line's own colour. */
 export function Sparkline({
-  data, color = "var(--series-1)", width = 120, height = 28, className,
-}: { data: number[]; color?: string; width?: number; height?: number; className?: string }) {
+  data, color = "var(--series-1)", width = 120, height = 28, fill = true, className,
+}: { data: number[]; color?: string; width?: number; height?: number; fill?: boolean; className?: string }) {
   if (data.length < 2) return null;
   const min = Math.min(...data);
   const max = Math.max(...data);
@@ -16,14 +16,18 @@ export function Sparkline({
   const id = `spark-${color.replace(/[^a-z0-9]/gi, "")}`;
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} className={cn("block", className)} aria-hidden>
-      <defs>
-        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.14" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <polygon points={`0,${height} ${line} ${width},${height}`} fill={`url(#${id})`} />
+    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} className={cn("block shrink-0", className)} aria-hidden>
+      {fill ? (
+        <>
+          <defs>
+            <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity="0.14" />
+              <stop offset="100%" stopColor={color} stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <polygon points={`0,${height} ${line} ${width},${height}`} fill={`url(#${id})`} />
+        </>
+      ) : null}
       <polyline points={line} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
     </svg>
   );
